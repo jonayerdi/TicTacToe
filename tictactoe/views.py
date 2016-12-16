@@ -7,8 +7,9 @@ from .models import Post
 
 def main_page(request):
 	users = User.objects.all()
-    games = Game.objects.filter(is_finished=0).order_by('created_date')[:10]
-    return render(request, 'tictactoe/main_page.html', {'users': users, 'games': games})
+	user_games = Game.objects.filter(user1=request.user.pk | user2=request.user.pk).filter(is_finished=0).order_by('created_date')[:16]
+    games = Game.objects.filter(is_finished=0).order_by('created_date')[:16]
+    return render(request, 'tictactoe/main_page.html', {'users': users, 'user_games': user_games, 'games': games})
 	
 def game_page(request, pk):
     game = get_object_or_404(Game, pk=pk)
