@@ -1,9 +1,9 @@
-{% extends "chatrooms/base.html" %}
+{% extends "tictactoe/base.html" %}
 {% load staticfiles %}
 
 {% block extra_headers %}
-	<script type="text/javascript" src="{% static "js/jquery_csrf_ajax.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/game.js" %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery_csrf_ajax.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/game.js' %}"></script>
 {% endblock %}
 
 
