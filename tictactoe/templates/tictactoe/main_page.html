@@ -16,7 +16,8 @@
 						{% for c in challenges %}
 							<li class="list-group-item">
 								{{ c.name }}
-								<button type="button" class="btn btn-success pull-right">PLAY</button>
+								<button type="button" class="btn btn-success pull-right"
+								onclick="window.location='/game/{{ c.id }}';">PLAY</button>
 							</li>
 						{% endfor %}
 					</ul>
@@ -27,7 +28,8 @@
 						{% for ug in user_games %}
 							<li class="list-group-item">
 								{{ ug.name }}
-								<button type="button" class="btn btn-success pull-right">PLAY</button>
+								<button type="button" class="btn btn-success pull-right"
+								onclick="window.location='/game/{{ ug.id }}';">PLAY</button>
 							</li>
 						{% endfor %}
 					</ul>
@@ -57,7 +59,8 @@
 					{% for g in games %}
 						<li class="list-group-item">
 							{{ g.name }}
-							<button type="button" class="btn btn-primary pull-right">VIEW</button>
+							<button type="button" class="btn btn-primary pull-right"
+							onclick="window.location='/game/{{ g.id }}';">VIEW</button>
 						</li>
 					{% endfor %}
 				</ul>

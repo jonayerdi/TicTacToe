@@ -16,6 +16,9 @@ def main_page(request):
 
 def game_page(request, pk):
     game = get_object_or_404(Game, pk=pk)
+    if game.outcome==-2:
+        game.outcome=-1
+        game.save()
     return render(request, 'tictactoe/game_page.html', {'game': game})
     
 def create_user(request):
