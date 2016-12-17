@@ -1,0 +1,10 @@
+{% extends "tictactoe/base.html" %}
+
+{% block content %}
+
+<form method="post"> {% csrf_token %}
+	{{ form.as_p }}
+    <button type="submit" class="save btn btn-default">Save</button>
+</form>
+
+{% endblock %}

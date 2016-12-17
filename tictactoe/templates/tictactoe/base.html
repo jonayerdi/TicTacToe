@@ -16,12 +16,14 @@
 		<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">TicTacToe</a>
+					<a class="navbar-brand" href="{% url 'main_page' %}">TicTacToe</a>
 				</div>
 				{% if user.is_authenticated %}
-					<span class="label-logged pull-right">Logged as: {{ user.username }}</span>
+					<span class="label-logged pull-right">Logged as: {{ user.username }} (<a href="{% url 'logout' %}?next=/">Logout</a>)</span>
 				{% else %}
-					<a class="label-logged pull-right" href="#">Login</a>
+					<a class="label-logged pull-right" href="{% url 'login' %}">Login</a>
+					<span class="label-logged pull-right">/</span>
+					<a class="label-logged pull-right" href="/newuser">Register</a>
 				{% endif %}
 			</div>
 		</nav>

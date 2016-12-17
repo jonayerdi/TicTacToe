@@ -1,0 +1,67 @@
+{% extends "tictactoe/base.html" %}
+{% load staticfiles %}
+
+{% block extra_headers %}
+	
+{% endblock %}
+
+
+{% block content %}
+    <div>
+		{% if user.is_authenticated %}
+			<div class="row">
+				<div class="list-scroll col-md-6">
+					<h2>New Challenges</h2>
+					<ul class="list-group" id='challenge_list'>
+						{% for c in challenges %}
+							<li class="list-group-item">
+								{{ c.name }}
+								<button type="button" class="btn btn-success pull-right">PLAY</button>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+				<div class="list-scroll col-md-6">
+					<h2>Your Games</h2>
+					<ul class="list-group" id='user_games_list'>
+						{% for ug in user_games %}
+							<li class="list-group-item">
+								{{ ug.name }}
+								<button type="button" class="btn btn-success pull-right">PLAY</button>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		{% endif %}
+		<div class="row">
+			{% if user.is_authenticated %}
+				<div class="list-scroll col-md-6">
+					<h2>All Users</h2>
+					<ul class="list-group" id='user_list'>
+						{% for u in users %}
+							<li class="list-group-item">
+								{{ u.username }}
+								{% if u.is_staff %}
+									<span class="label label-default">ADMIN</span>
+								{% endif %}
+								<button type="button" class="btn btn-danger pull-right">CHALLENGE</button>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			{% endif %}
+			<div class="list-scroll col-md-6">
+				<h2>All Games</h2>
+				<ul class="list-group" id='games_list'>
+					{% for g in games %}
+						<li class="list-group-item">
+							{{ g.name }}
+							<button type="button" class="btn btn-primary pull-right">VIEW</button>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	<div>
+{% endblock %}
