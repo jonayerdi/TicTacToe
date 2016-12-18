@@ -17,10 +17,19 @@ def main_page(request):
 
 def game_page(request, pk):
     game = get_object_or_404(Game, pk=pk)
-    if game.outcome==-2:
+    if request.user==game.user2 and game.outcome==-2:
         game.outcome=-1
         game.save()
     return render(request, 'tictactoe/game_page.html', {'game': game})
+    
+def new_game(request, user2pk):
+    if request.user.is_authenticated():
+        user2 = User.objects.get(pk=int(user2pk))
+        if request.user != user2:
+            game = Game(user1=request.user, user2=user2)
+            game.save()
+            return game_page(request, game.id)
+    return HttpResponse()
     
 def get_board_state(request, game_id):
     game = get_object_or_404(Game, pk=game_id)

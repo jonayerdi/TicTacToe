@@ -54,7 +54,10 @@
 								{% if u.is_staff %}
 									<span class="label label-default">ADMIN</span>
 								{% endif %}
-								<button type="button" class="btn btn-danger pull-right">CHALLENGE</button>
+								{% if user != u %}
+								<button type="button" class="btn btn-danger pull-right"
+								onclick="window.location='/new_game/{{ u.pk }}';">CHALLENGE</button>
+								{% endif %}
 							</li>
 						{% endfor %}
 					</ul>
