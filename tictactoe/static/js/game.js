@@ -2,26 +2,31 @@
 var $board_area;
 var boardUpdateIntervalID;
 
+//Sets the board to the values of data
+function setBoard(data) {
+	for(var i = 0 ; i < 36 ; i++) {
+		var value;
+		switch (data[i]) {
+			case 'X':
+				value='X';
+			break;
+			case 'O':
+				value='O';
+			break;
+			default:
+				value='';
+			break;
+		}
+		$('#s'+i+'').html(value);
+	}
+}
+
 //AJAX request to update board state
 function updateBoard() {
 	$.ajax({
 		url: '/get_board_state/'+game_id,
 		success: function(data) {
-			for(var i = 0 ; i < 36 ; i++) {
-				var value;
-				switch (data[i]) {
-					case 'X':
-						value='X';
-					break;
-					case 'O':
-						value='O';
-					break;
-					default:
-						value='';
-					break;
-				}
-				$('#s'+i+'').html(value);
-			}
+			setBoard(data);
 		},
 		failure: function(data) { 
 			
@@ -31,7 +36,15 @@ function updateBoard() {
 
 //Called when the user clicks a cell from the board
 function cell_clicked(n) {
-	
+	$.ajax({
+		url: '/change_board_state/'+game_id+'/'+n,
+		success: function(data) {
+			setBoard(data);
+		},
+		failure: function(data) { 
+			
+		}
+	}); 
 }
 
 //Builds the board table

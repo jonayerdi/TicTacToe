@@ -8,6 +8,7 @@ class Game(models.Model):
     name = models.TextField()
     user1 = models.ForeignKey('auth.User', related_name='+')
     user2 = models.ForeignKey('auth.User', related_name='+')
+    user1_turn = models.BooleanField(default=True)
     state = models.CharField(max_length=36)
     created_date = models.DateTimeField(default=timezone.now)
     finished_date = models.DateTimeField(blank=True, null=True)

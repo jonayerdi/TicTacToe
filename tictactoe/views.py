@@ -21,9 +21,25 @@ def game_page(request, pk):
         game.outcome=-1
         game.save()
     return render(request, 'tictactoe/game_page.html', {'game': game})
-	
-def board_state(request, game_id):
+    
+def get_board_state(request, game_id):
     game = get_object_or_404(Game, pk=game_id)
+    return HttpResponse(game.state)
+    
+def change_board_state(request, game_id, square):
+    game = get_object_or_404(Game, pk=game_id)
+    square = int(square)
+    if (game.outcome==-2 or game.outcome==-1) and game.state[square]=='_':
+        if request.user==game.user1 and game.user1_turn:
+            game.state = game.state[:square] + 'X' + game.state[square + 1:]
+            game.user1_turn = not game.user1_turn
+            game.save()
+            return HttpResponse(game.state)
+        elif request.user==game.user2 and not game.user1_turn:
+            game.state = game.state[:square] + 'O' + game.state[square + 1:]
+            game.user1_turn = not game.user1_turn
+            game.save()
+            return HttpResponse(game.state)
     return HttpResponse(game.state)
     
 def create_user(request):
@@ -41,7 +57,7 @@ def create_user(request):
             user = User.objects.create_user(username=userName, password=userPass)
             return redirect('login')
     else:
-	    form = CreateUserForm()
+        form = CreateUserForm()
     return render(request, 'registration/create_user.html', {'form': form})
 
     
