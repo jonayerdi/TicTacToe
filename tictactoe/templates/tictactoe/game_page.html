@@ -4,6 +4,8 @@
 {% block extra_headers %}
 	<script type="text/javascript">
         var game_id = {{game.id}};
+		var user1 = "{{game.user1}}";
+		var user2 = "{{game.user2}}";
     </script>
     <script type="text/javascript" src="{% static 'js/game.js' %}"></script>
 {% endblock %}
@@ -13,7 +15,7 @@
 		<h1 class="center">{{game.user1}} vs {{game.user2}}</h1>
 	</div>
 	<div class="row col-xs-12">
-		<h2 class="center">
+		<h2 id="header_turn" class="center">
 			{% if game.user1_turn %}{{game.user1}}{% else %}{{game.user2}}{% endif %}'s turn
 		</h2>
 	</div>

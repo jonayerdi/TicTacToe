@@ -1,17 +1,21 @@
 
+var $header_turn;
 var $board_area;
 var boardUpdateIntervalID;
 
 //Sets the board to the values of data
 function setBoard(data) {
+	var countX = 0;
 	for(var i = 0 ; i < 36 ; i++) {
 		var value;
 		switch (data[i]) {
 			case 'X':
 				value='X';
+				countX++;
 			break;
 			case 'O':
 				value='O';
+				countX--;
 			break;
 			default:
 				value='';
@@ -19,6 +23,8 @@ function setBoard(data) {
 		}
 		$('#s'+i+'').html(value);
 	}
+	if(countX<=0) $header_turn.html(user1+"'s turn");
+	else $header_turn.html(user2+"'s turn");
 }
 
 //AJAX request to update board state
@@ -68,6 +74,7 @@ function buildBoard() {
 //Wait till all is loaded
 $(document).ready(function() {
 	//Get jQuery variables
+	$header_turn = $('#header_turn');
 	$board_area = $('#board_area');
 	//Build the board
 	buildBoard();
