@@ -27,3 +27,26 @@
 	padding: 0px 5px 0px 5px;
 	height: 20px;
 }
+
+.center {
+	text-align:center;
+}
+
+table {
+	overflow-x:auto;
+	margin: 24px auto;
+}
+
+th, td  {
+	text-align: center;
+	border: 1px solid #777777;
+	background: #EEEEEE;
+}
+
+th, td:hover  {
+	background-color: #AAAAAA
+}
+
+th, td:active  {
+	background-color: #AAAAFF
+}

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -20,6 +21,10 @@ def game_page(request, pk):
         game.outcome=-1
         game.save()
     return render(request, 'tictactoe/game_page.html', {'game': game})
+	
+def board_state(request, game_id):
+    game = get_object_or_404(Game, pk=game_id)
+    return HttpResponse(game.state)
     
 def create_user(request):
     if request.method == "POST":
