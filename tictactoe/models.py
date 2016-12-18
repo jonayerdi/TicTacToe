@@ -5,7 +5,6 @@ from django.utils import timezone
 
 class Game(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.TextField()
     user1 = models.ForeignKey('auth.User', related_name='+')
     user2 = models.ForeignKey('auth.User', related_name='+')
     user1_turn = models.BooleanField(default=True)
@@ -14,10 +13,6 @@ class Game(models.Model):
     finished_date = models.DateTimeField(blank=True, null=True)
     outcome = models.IntegerField(default=-2)
     
-    def setName(self):
-        self.name = Concat(User.objects.get(pk=user1).username," vs ",ser.objects.get(pk=user2).username)
-        self.save()
-	
     def finish(self, winner):
         if winner == self.user1:
             self.outcome = 1
@@ -26,16 +21,15 @@ class Game(models.Model):
         else:
             self.outcome = 0
         self.finished_date = timezone.now()
-        self.is_finished = 1
         self.save()
         
     def winner(self):
         switch = {
             0: null,
-            1: user1,
-            2: user2,
+            1: self.user1,
+            2: self.user2,
         }
         return switch.get(self.outcome, null)
 
     def __str__(self):
-        return self.name
+        return self.user1 + " vs " + self.user2

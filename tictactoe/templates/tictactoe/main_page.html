@@ -2,9 +2,8 @@
 {% load staticfiles %}
 
 {% block extra_headers %}
-	
+	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 {% endblock %}
-
 
 {% block content %}
     <div>
@@ -15,7 +14,11 @@
 					<ul class="list-group" id='challenge_list'>
 						{% for c in challenges %}
 							<li class="list-group-item">
-								{{ c.name }}
+								{% if c.user1_turn %}
+									<span class='highlight'>{{c.user1}}</span> vs {{c.user2}}
+								{% else %}
+									{{c.user1}} vs <span class='highlight'>{{c.user2}}</span>
+								{% endif %}
 								<button type="button" class="btn btn-success pull-right"
 								onclick="window.location='/game/{{ c.id }}';">PLAY</button>
 							</li>
@@ -27,7 +30,11 @@
 					<ul class="list-group" id='user_games_list'>
 						{% for ug in user_games %}
 							<li class="list-group-item">
-								{{ ug.name }}
+								{% if ug.user1_turn %}
+									<span class='highlight'>{{ug.user1}}</span> vs {{ug.user2}}
+								{% else %}
+									{{ug.user1}} vs <span class='highlight'>{{ug.user2}}</span>
+								{% endif %}
 								<button type="button" class="btn btn-success pull-right"
 								onclick="window.location='/game/{{ ug.id }}';">PLAY</button>
 							</li>
@@ -58,7 +65,11 @@
 				<ul class="list-group" id='games_list'>
 					{% for g in games %}
 						<li class="list-group-item">
-							{{ g.name }}
+							{% if g.user1_turn %}
+								<span class='highlight'>{{g.user1}}</span> vs {{g.user2}}
+							{% else %}
+								{{g.user1}} vs <span class='highlight'>{{g.user2}}</span>
+							{% endif %}
 							<button type="button" class="btn btn-primary pull-right"
 							onclick="window.location='/game/{{ g.id }}';">VIEW</button>
 						</li>

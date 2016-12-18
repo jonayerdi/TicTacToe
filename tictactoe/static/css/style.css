@@ -22,6 +22,16 @@
 	height: 220px;
 }
 
+.list-group-item {
+	font-size: 16px;
+}
+
+.highlight {
+	background: #FFCCCC;
+	border: 1px solid #FFAAAA;
+	border-radius: 3px;
+}
+
 .btn {
 	font-size: 12px;
 	padding: 0px 5px 0px 5px;
