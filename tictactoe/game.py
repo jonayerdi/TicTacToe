@@ -17,31 +17,26 @@ class GameLogic:
             return False
             
     def check_line(game,square):
+        value = game.state[square]
         row = int(square/6)
         col = square%6
-        indexX = [[],[]]
-        indexO = [[],[]]
+        indexList = [[],[]]
         for i in range(6):
             index = [int(6*i+col),int(6*row+i)]
             for d in range(2):
-                if game.state[index[d]]=='X':
-                    indexX[d].append(index[d])
-                    indexO[d]=[]
-                elif game.state[index[d]]=='O':
-                    indexX[d]=[]
-                    indexO[d].append(index[d])
+                if game.state[index[d]]==value:
+                    indexList[d].append(index[d])
                 else:
-                    indexX[d]=[]
-                    indexO[d]=[]
-                if len(indexX[d])==4:
-                    for e in indexX[d]:
-                        game.state = game.state[:e]+'x'+game.state[e+1:]
-                    Game.finish(game,game.user1)
-                    return True
-                elif len(indexO[d])==4:
-                    for e in indexO[d]:
-                        game.state = game.state[:e]+'o'+game.state[e+1:]
-                    Game.finish(game,game.user2)
+                    indexList[d]=[]
+                if len(indexList[d])==4:
+                    winner = game.user1
+                    newValue = 'x'
+                    if value=='O':
+                        winner = game.user2
+                        newValue = 'o'
+                    for e in indexList[d]:
+                        game.state = game.state[:e]+newValue+game.state[e+1:]
+                    Game.finish(game,winner)
                     return True
         return False
 

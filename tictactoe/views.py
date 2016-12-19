@@ -29,7 +29,7 @@ def new_game(request, user2pk):
         if request.user != user2:
             game = Game(user1=request.user, user2=user2)
             game.save()
-            return game_page(request, game.id)
+            return redirect('/game/'+str(game.pk))
     return HttpResponse()
     
 def get_board_state(request, game_id):
