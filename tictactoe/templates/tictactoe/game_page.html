@@ -12,11 +12,10 @@
 
 {% block content %}
     <div class="row col-xs-12">
-		<h1 class="center">{{game.user1}} vs {{game.user2}}</h1>
+		<h1 class="center">{{game.user1}}(<span class='squareX'>X</span>) vs {{game.user2}}(<span class='squareO'>O</span>)</h1>
 	</div>
 	<div class="row col-xs-12">
 		<h2 id="header_turn" class="center">
-			{% if game.user1_turn %}{{game.user1}}{% else %}{{game.user2}}{% endif %}'s turn
 		</h2>
 	</div>
 	<div id="board_area" class="row col-xs-12">

@@ -5,7 +5,9 @@ var boardUpdateIntervalID;
 
 //Sets the board to the values of data
 function setBoard(data) {
+	var countBlank = 0;
 	var countX = 0;
+	var win = 0;
 	for(var i = 0 ; i < 36 ; i++) {
 		var value;
 		var $square = $('#s'+i+'');
@@ -22,28 +24,36 @@ function setBoard(data) {
 			break;
 			case 'x':
 				value='X';
-				countX++;
+				win=1;
 				$square.addClass("squareXWin");
 			break;
 			case 'o':
 				value='O';
-				countX--;
+				win=2;
 				$square.addClass("squareOWin");
 			break;
 			default:
 				value='';
+				countBlank++;
 			break;
 		}
 		$square.html(value);
 	}
-	if(countX<=0) $header_turn.html(user1+"'s turn");
-	else $header_turn.html(user2+"'s turn");
+	if(win>0) {
+		if(win===1) $header_turn.html(user1+"(<span class='squareX'>X</span>) wins");
+		else $header_turn.html(user2+"(<span class='squareO'>O</span>) wins");
+	}
+	else {
+		if(countBlank==0) $header_turn.html("Stalemate");
+		else if(countX<=0) $header_turn.html(user1+"(<span class='squareX'>X</span>)'s turn");
+		else $header_turn.html(user2+"(<span class='squareO'>O</span>)'s turn");
+	}
 }
 
 //AJAX request to update board state
 function updateBoard() {
 	$.ajax({
-		url: '/get_board_state/'+game_id,
+		url: '/get_board_state/'+game_id+'/',
 		success: function(data) {
 			setBoard(data);
 		},
@@ -56,7 +66,8 @@ function updateBoard() {
 //Called when the user clicks a cell from the board
 function cell_clicked(n) {
 	$.ajax({
-		url: '/change_board_state/'+game_id+'/'+n,
+		url: '/change_board_state/'+game_id+'/'+n+'/',
+		type: 'post',
 		success: function(data) {
 			setBoard(data);
 		},
