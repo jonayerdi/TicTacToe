@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.db.models import Q
 from .models import Game
 from .forms import CreateUserForm
+from .game import GameLogic
 
 def main_page(request):
     users = User.objects.all().order_by('username')
@@ -42,11 +43,13 @@ def change_board_state(request, game_id, square):
         if request.user==game.user1 and game.user1_turn:
             game.state = game.state[:square] + 'X' + game.state[square + 1:]
             game.user1_turn = not game.user1_turn
+            GameLogic.check_finish(game,square)
             game.save()
             return HttpResponse(game.state)
         elif request.user==game.user2 and not game.user1_turn:
             game.state = game.state[:square] + 'O' + game.state[square + 1:]
             game.user1_turn = not game.user1_turn
+            GameLogic.check_finish(game,square)
             game.save()
             return HttpResponse(game.state)
     return HttpResponse(game.state)
