@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.core import serializers
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.db.models import Q
@@ -16,6 +17,15 @@ def main_page(request):
     games = Game.objects.filter(Q(outcome=-2) | Q(outcome=-1)).order_by('created_date')[:64]
     return render(request, 'tictactoe/main_page.html', {'users': users, 'challenges': challenges, 'user_games': user_games, 'games': games})
 
+def get_username(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    return HttpResponse(user.username)
+	
+def get_challenge_list(request, pk):
+    challenges = Game.objects.filter(user2=pk).filter(outcome=-2).order_by('created_date')
+    challenges_serialized = serializers.serialize("json", challenges, fields=('user1','user2','user1_turn'))
+    return HttpResponse(challenges_serialized)
+	
 def game_page(request, pk):
     game = get_object_or_404(Game, pk=pk)
     if request.user==game.user2 and game.outcome==-2:

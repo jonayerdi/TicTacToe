@@ -15,17 +15,6 @@
 				<div class="list-scroll col-md-6">
 					<h2>New Challenges</h2>
 					<ul class="list-group" id='challenge_list'>
-						{% for c in challenges %}
-							<li class="list-group-item">
-								{% if c.user1_turn %}
-									<span class='highlight'>{{c.user1}}</span> vs {{c.user2}}
-								{% else %}
-									{{c.user1}} vs <span class='highlight'>{{c.user2}}</span>
-								{% endif %}
-								<button type="button" class="btn btn-success pull-right"
-								onclick="window.location='/game/{{ c.id }}';">PLAY</button>
-							</li>
-						{% endfor %}
 					</ul>
 				</div>
 				<div class="list-scroll col-md-6">
