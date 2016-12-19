@@ -41,6 +41,42 @@ class GameLogic:
         return False
 
     def check_diagonal(game,square):
+        value = game.state[square]
+        row = int(square/6)
+        col = square%6
+        index=[square]
+        for i in range(1,6):
+            cur = 6*(row+i)+col+i
+            if cur>35 or game.state[cur]!=value:
+                break
+            index.append(cur)
+        for i in range(1,6):
+            cur = 6*(row-i)+col-i
+            if cur<0 or game.state[cur]!=value:
+                break
+            index.append(cur)
+        if len(index)<4:
+            index=[square]
+            for i in range(1,6):
+                cur = 6*(row+i)+col-i
+                if cur>35 or game.state[cur]!=value:
+                    break
+                index.append(cur)
+            for i in range(1,6):
+                cur = 6*(row-i)+col+i
+                if cur<0 or game.state[cur]!=value:
+                    break
+                index.append(cur)
+        if len(index)==4:
+            winner = game.user1
+            newValue = 'x'
+            if value=='O':
+                winner = game.user2
+                newValue = 'o'
+            for e in index:
+                game.state = game.state[:e]+newValue+game.state[e+1:]
+            Game.finish(game,winner)
+            return True
         return False
 
     def check_square(game,square):

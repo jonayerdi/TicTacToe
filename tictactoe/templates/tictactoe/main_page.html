@@ -2,6 +2,9 @@
 {% load staticfiles %}
 
 {% block extra_headers %}
+	<script type="text/javascript">
+		var user{% if user.is_authenticated %}="{{user.pk}}"{% endif %};
+	</script>
 	<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 {% endblock %}
 
