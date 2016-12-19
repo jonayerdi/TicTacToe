@@ -42,6 +42,24 @@
 	text-align:center;
 }
 
+.squareX {
+	color: #C66;
+}
+
+.squareO {
+	color: #66C;
+}
+
+.squareXWin {
+	color: #EEE;
+	background: #C66;
+}
+
+.squareOWin {
+	color: #EEE;
+	background: #66C;
+}
+
 table {
 	overflow-x:auto;
 	margin: 24px auto;

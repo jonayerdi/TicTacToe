@@ -32,4 +32,4 @@ class Game(models.Model):
         return switch.get(self.outcome, null)
 
     def __str__(self):
-        return self.user1 + " vs " + self.user2
+        return self.user1.username + " vs " + self.user2.username

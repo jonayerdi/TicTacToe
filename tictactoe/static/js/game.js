@@ -8,20 +8,33 @@ function setBoard(data) {
 	var countX = 0;
 	for(var i = 0 ; i < 36 ; i++) {
 		var value;
+		var $square = $('#s'+i+'');
 		switch (data[i]) {
 			case 'X':
 				value='X';
 				countX++;
+				$square.addClass("squareX");
 			break;
 			case 'O':
 				value='O';
 				countX--;
+				$square.addClass("squareO");
+			break;
+			case 'x':
+				value='X';
+				countX++;
+				$square.addClass("squareXWin");
+			break;
+			case 'o':
+				value='O';
+				countX--;
+				$square.addClass("squareOWin");
 			break;
 			default:
 				value='';
 			break;
 		}
-		$('#s'+i+'').html(value);
+		$square.html(value);
 	}
 	if(countX<=0) $header_turn.html(user1+"'s turn");
 	else $header_turn.html(user2+"'s turn");
