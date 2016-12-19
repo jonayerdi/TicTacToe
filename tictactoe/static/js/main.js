@@ -37,7 +37,7 @@ function visualizeChallenges(json) {
 				list_item += "<span class='highlight'>"+user1+"</span> vs "+user2;
 			else
 				list_item += user1+" vs <span class='highlight'>"+user2+"</span>";
-			list_item += "<button type=\"button\" class=\"btn btn-success pull-right\" onclick=\"window.location='/game/{{ c.id }}';\">PLAY</button></li>";
+			list_item += "<button type=\"button\" class=\"btn btn-success pull-right\" onclick=\"window.location='/game/"+pk+"';\">PLAY</button></li>";
 			$challenge_list.append(list_item);
 		}
 	}
