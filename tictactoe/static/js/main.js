@@ -11,10 +11,9 @@ function getUsername(id) {
 			url: '/get_username/'+id+'/',
 			success: function(data) {
 				user_cache[id] = data;
-				return data;
 			},
 			failure: function(data) { 
-				return getUsername(id);
+				
 			}
 		}); 
 	}
