@@ -68,14 +68,8 @@ def create_user(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
-            usr = form.save(commit=False)
-            user = User.objects.create_user(username=usr.username, password=usr.password)
-            return redirect('login')
-    if request.method == "POST":
-        form = CreateUserForm(request.POST)
-        if form.is_valid():
-            userName = request.username
-            userPass = request.password
+            userName = request.POST['username']
+            userPass = request.POST['password']
             user = User.objects.create_user(username=userName, password=userPass)
             return redirect('login')
     else:
