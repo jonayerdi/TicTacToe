@@ -20,12 +20,12 @@ def main_page(request):
 def get_username(request, pk):
     user = get_object_or_404(User, pk=pk)
     return HttpResponse(user.username)
-	
+    
 def get_challenge_list(request, pk):
     challenges = Game.objects.filter(user2=pk).filter(outcome=-2).order_by('created_date')
     challenges_serialized = serializers.serialize("json", challenges, fields=('user1','user2','user1_turn'))
     return HttpResponse(challenges_serialized)
-	
+    
 def game_page(request, pk):
     game = get_object_or_404(Game, pk=pk)
     if request.user==game.user2 and game.outcome==-2:
@@ -76,4 +76,25 @@ def create_user(request):
         form = CreateUserForm()
     return render(request, 'registration/create_user.html', {'form': form})
 
+#REST API for third parties (Not used for page)
+
+def get_user_list(request):
+    users = User.objects.all()
+    users_serialized = serializers.serialize("json", users, fields=('username','is_staff'))
+    return HttpResponse(users_serialized)
     
+def get_active_game_list(request):
+    games = Game.objects.all().filter(Q(outcome=-2) | Q(outcome=-1)).order_by('created_date')
+    games_serialized = serializers.serialize("json", games, fields=('user1','user2','user1_turn'))
+    return HttpResponse(games_serialized)
+	
+def get_game_list_user(request, pk):
+    games = Game.objects.all().filter(Q(user1=pk) | Q(user2=pk)).order_by('created_date').order_by('created_date')
+    games_serialized = serializers.serialize("json", games, fields=('user1','user2','user1_turn'))
+    return HttpResponse(games_serialized)
+	
+def get_active_game_list_user(request, pk):
+    games = Game.objects.all().filter(Q(outcome=-2) | Q(outcome=-1)).filter(Q(user1=pk) | Q(user2=pk)).order_by('created_date').order_by('created_date')
+    games_serialized = serializers.serialize("json", games, fields=('user1','user2','user1_turn'))
+    return HttpResponse(games_serialized)
+	
