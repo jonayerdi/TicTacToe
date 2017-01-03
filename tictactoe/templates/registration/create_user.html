@@ -4,7 +4,7 @@
 
 <form method="post" class="page center row col-md-12"> {% csrf_token %}
 	{{ form.as_p }}
-    <button type="submit" class="save btn btn-default">Save</button>
+    <input type="submit" value="Save" class="btn btn-default"></input>
 </form>
 
 {% endblock %}

@@ -24,7 +24,7 @@ class CreateUserForm(forms.Form):
         return self.cleaned_data
         
     username = forms.CharField(max_length=150, label='User name', required=True, validators=[validate_name])
-    password = forms.CharField(max_length=128, label='Password', required=True, widget=forms.PasswordInput)
-    password2 = forms.CharField(max_length=128, label='Password again', required=True, widget=forms.PasswordInput)
+    password = forms.CharField(max_length=32, label='Password', required=True, widget=forms.PasswordInput)
+    password2 = forms.CharField(max_length=32, label='Password again', required=True, widget=forms.PasswordInput)
                 
         

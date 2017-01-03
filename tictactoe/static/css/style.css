@@ -86,12 +86,24 @@
 
 input[type="submit"] {
 	background-color: #4CAF50;
+	height: 30px;
+	font-size: 16px;
     border: none;
     color: white;
-    padding: 5px 10px;
+    padding: 5px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
+}
+
+input[type="submit"]:hover {
+	background-color: #118F11;
+	color: white;
+}
+
+input[type="submit"]:active {
+	background-color: #004400;
+	color: white;
 }
 
 table {
