@@ -63,6 +63,6 @@ $(document).ready(function() {
 	//Set interval for challenges update
 	if(user) {
 		updateChallenges();
-		challengeUpdateIntervalID = setInterval(function(){updateChallenges()}, 3000);
+		challengeUpdateIntervalID = setInterval(function(){updateChallenges()}, 1000);
 	}
 });
