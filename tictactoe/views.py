@@ -97,4 +97,3 @@ def get_active_game_list_user(request, pk):
     games = Game.objects.all().filter(Q(outcome=-2) | Q(outcome=-1)).filter(Q(user1=pk) | Q(user2=pk)).order_by('created_date').order_by('created_date')
     games_serialized = serializers.serialize("json", games, fields=('user1','user2','user1_turn'))
     return HttpResponse(games_serialized)
-	
